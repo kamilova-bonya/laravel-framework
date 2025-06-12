@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = (new Post())->all();
+        //$posts = Post::all();
+
+        $posts = DB::table("posts")->orderBy("id", "desc")->get();
+
 
         return view('posts', [
             'posts' => $posts
@@ -20,12 +23,17 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = (new Post())->find($id);
-        if (!$post) {
+        //$post = Post::find($id);
+
+        $post = DB::table("posts")->find($id);
+
+        if ($post === null) {
             abort(404);
         }
+
         return view('post', [
             'post' => $post
         ]);
+
     }
 }

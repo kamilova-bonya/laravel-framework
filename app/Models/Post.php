@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Models;
 
 class Post
 {
-    public function all(): array
+    public static function all(): ?array
     {
         return [
             1 => [
@@ -20,9 +19,8 @@ class Post
         ];
     }
 
-    public function find($id): ?array
+    public static function find(int $id): ?array
     {
-        $posts = $this::all();
-        return $posts[$id] ?? null;
+        return static::all()[$id] ?? null;
     }
 }
