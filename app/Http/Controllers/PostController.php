@@ -15,7 +15,7 @@ class PostController extends Controller
         $posts = DB::table("posts")->orderBy("id", "desc")->get();
 
 
-        return view('posts', [
+        return view('posts.index', [
             'posts' => $posts
         ]);
 
@@ -31,7 +31,7 @@ class PostController extends Controller
             abort(404);
         }
 
-        return view('post', [
+        return view('posts.show', [
             'post' => $post
         ]);
 

@@ -17,6 +17,7 @@ class PostSeeder extends Seeder
             DB::table('posts')->insert([
                 'title' => fake()->realText(10),
                 'content' => fake()->realText(1000),
+                'category_id' => rand(1, 3),
             ]);
         }
     }
