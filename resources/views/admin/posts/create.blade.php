@@ -13,7 +13,11 @@
         @csrf
         <input type="text" name="title">
         <input type="text" name="content">
-        <input type="text" name="category_id" value="1">
+        <select name="category_id">
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+        </select>
         <input type="submit" value="Добавить">
     </form>
 @endsection
