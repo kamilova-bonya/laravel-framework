@@ -9,9 +9,11 @@
 @section('content')
     <b>Посты категории {{ $category->name }}</b>
 
-    @foreach($posts as $post)
+    @foreach($category->posts as $post)
         <div>
-            <a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a>
+            <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
         </div>
     @endforeach
 @endsection
+
+

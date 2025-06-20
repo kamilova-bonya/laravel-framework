@@ -1,12 +1,19 @@
 @extends('layouts.main')
 
-@section('title', 'CRUD постов')
+@section('title', 'Посты crud')
 
 @section('menu')
     @include('admin.menu')
 @endsection
 
 @section('content')
-    <b>CRUD постов админки</b>
-
+    <b>Все посты</b>
+    <a href="{{ route('admin.posts.create') }}">Создать пост</a><br>
+    @foreach($posts as $post)
+        <div>
+            {{ $post->title }} [edit] [x]
+        </div>
+    @endforeach
 @endsection
+
+

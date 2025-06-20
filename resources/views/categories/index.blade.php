@@ -7,12 +7,13 @@
 @endsection
 
 @section('content')
-    <b>Все категории</b>
+    <b>Категории</b>
 
     @foreach($categories as $category)
         <div>
-            <a href="{{ route('posts.categories.show', $category->id ) }}">{{ $category->name }}</a>
+            <a href="{{ route('posts.categories.show', $category) }}">{{ $category->name }}</a>
         </div>
     @endforeach
 @endsection
+
 

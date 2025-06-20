@@ -11,7 +11,7 @@
 
     @foreach($posts as $post)
         <div>
-            <a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a>
+           Категория: {{ $post->category->name }} <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
         </div>
     @endforeach
 @endsection

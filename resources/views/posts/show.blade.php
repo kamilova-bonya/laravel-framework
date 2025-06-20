@@ -8,6 +8,7 @@
 
 @section('content')
     <div>
+        Категория {{ $post->category->name }}<br>
         <b>{{ $post->title }}  </b>
         <p>
             {{ $post->content }}

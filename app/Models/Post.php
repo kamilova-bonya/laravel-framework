@@ -1,26 +1,15 @@
 <?php
+
 namespace App\Models;
 
-class Post
-{
-    public static function all(): ?array
-    {
-        return [
-            1 => [
-                'id' => 1,
-                'title' => 'First Post',
-                'content' => 'First Post'
-            ],
-            2 => [
-                'id' => 2,
-                'title' => 'Second Post',
-                'content' => 'Second Post'
-            ],
-        ];
-    }
+use Illuminate\Database\Eloquent\Model;
 
-    public static function find(int $id): ?array
+class Post extends Model
+{
+    protected $fillable = ['title', 'content', 'category_id'];
+
+    public function category()
     {
-        return static::all()[$id] ?? null;
+        return $this->belongsTo(Category::class);
     }
 }

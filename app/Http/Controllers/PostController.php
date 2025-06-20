@@ -10,9 +10,9 @@ class PostController extends Controller
 {
     public function index()
     {
-        //$posts = Post::all();
+        $posts = Post::with('category')->get();
 
-        $posts = DB::table("posts")->orderBy("id", "desc")->get();
+       // $posts = DB::table("posts")->orderBy("id", "desc")->get();
 
 
         return view('posts.index', [
@@ -21,15 +21,11 @@ class PostController extends Controller
 
     }
 
-    public function show($id)
+    public function show(Post $post)
     {
-        //$post = Post::find($id);
+       // $post = Post::findOrFail($id);
 
-        $post = DB::table("posts")->find($id);
-
-        if ($post === null) {
-            abort(404);
-        }
+       // $post = DB::table("posts")->find($id);
 
         return view('posts.show', [
             'post' => $post
