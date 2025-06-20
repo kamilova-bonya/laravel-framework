@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -26,5 +27,11 @@ Route::name('admin.')
         Route::get('/posts', [AdminPostController::class, 'index'])->name('posts.index');
         Route::get('/posts/create', [AdminPostController::class, 'create'])->name('posts.create');
         Route::post('/posts/store', [AdminPostController::class, 'store'])->name('posts.store');
+        Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
+        Route::get('/categories/create', [AdminCategoryController::class, 'create'])->name('categories.create');
+        Route::post('/categories/store', [AdminCategoryController::class, 'store'])->name('categories.store');
+        Route::get('/categories/{category}/edit', [AdminCategoryController::class, 'edit'])->name('categories.edit');
+        Route::patch('/categories/{category}/update', [AdminCategoryController::class, 'update'])->name('categories.update');
+        Route::delete('/categories/{category}/destroy', [AdminCategoryController::class, 'destroy'])->name('categories.destroy');
     });
 
