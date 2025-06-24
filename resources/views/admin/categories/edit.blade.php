@@ -10,7 +10,7 @@
     <b>Редактировать категорию</b>
     <form action="{{ route('admin.categories.update', $category) }}" method="post">
         @csrf
-        @method('PATCH')
+        @method('PUT')
         <div>
             <label for="name">Название:</label>
             <input type="text" name="name" id="name" value="{{ old('name', $category->name) }}">

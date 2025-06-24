@@ -47,4 +47,30 @@ class PostController extends Controller
 
         return redirect()->route('admin.posts.index');
     }
+
+    public function edit(Post $post)
+    {
+        $categories = Category::all();
+
+        return view('admin.posts.edit',
+            [
+                'categories' => $categories,
+                'post' => $post
+            ]
+        );
+    }
+
+    public function update(Request $request, Post $post)
+    {
+        $post->update($request->all());
+
+        return redirect()->route('admin.posts.index');
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        return redirect()->route('admin.posts.index');
+    }
 }

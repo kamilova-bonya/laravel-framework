@@ -27,11 +27,14 @@ Route::name('admin.')
         Route::get('/posts', [AdminPostController::class, 'index'])->name('posts.index');
         Route::get('/posts/create', [AdminPostController::class, 'create'])->name('posts.create');
         Route::post('/posts/store', [AdminPostController::class, 'store'])->name('posts.store');
+        Route::get('/posts/{post}/destroy', [AdminPostController::class, 'destroy'])->name('posts.destroy');
+        Route::get('/posts/{post}/edit', [AdminPostController::class, 'edit'])->name('posts.edit');
+        Route::put('/posts/{post}', [AdminPostController::class, 'update'])->name('posts.update');
         Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
         Route::get('/categories/create', [AdminCategoryController::class, 'create'])->name('categories.create');
         Route::post('/categories/store', [AdminCategoryController::class, 'store'])->name('categories.store');
         Route::get('/categories/{category}/edit', [AdminCategoryController::class, 'edit'])->name('categories.edit');
-        Route::patch('/categories/{category}/update', [AdminCategoryController::class, 'update'])->name('categories.update');
+        Route::put('/categories/{category}', [AdminCategoryController::class, 'update'])->name('categories.update');
         Route::delete('/categories/{category}/destroy', [AdminCategoryController::class, 'destroy'])->name('categories.destroy');
     });
 
