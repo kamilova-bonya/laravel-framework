@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -10,8 +11,11 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::latest()->get();
-        return view('admin.categories.index', compact('categories'));
+        $categories = Category::all();
+
+        return view('admin.categories.index', [
+            'categories' => $categories
+        ]);
     }
 
     public function create()
@@ -19,38 +23,36 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name',
-        ], [
-            'name.unique' => 'Категория с таким названием уже существует'
-        ]);
+        $validated = $request->validated();
 
         try {
-            Category::create(['name' => $validated['name']]);
-        } catch (\Exception $e) {
-            return redirect()->back()->with('danger', 'Ошибка: ' . $e->getMessage());
+            Category::create($validated);
+        } catch (\Exception $exception) {
+            return redirect()->route('admin.categories.create')
+                ->with('error', 'Ошибка добавления категории! ' . $exception->getMessage());
         }
 
         return redirect()->route('admin.categories.index')
-            ->with('success', 'Категория создана!');
+            ->with('success', 'Категория добавлена!');
     }
 
     public function edit(Category $category)
     {
-        return view('admin.categories.edit', compact('category'));
+        return view('admin.categories.edit', [
+            'category' => $category
+        ]);
     }
 
     public function update(Request $request, Category $category)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name,'.$category->id,
-        ], [
-            'name.unique' => 'Категория с таким названием уже существует'
+            'name' => 'required|min:5|max:50|unique:categories,name,' . $category->id,
         ]);
 
-        $category->update(['name' => $validated['name']]);
+        $category->fill($validated);
+        $category->save();
 
         return redirect()->route('admin.categories.index')
             ->with('success', 'Категория обновлена!');
@@ -60,12 +62,11 @@ class CategoryController extends Controller
     {
         try {
             $category->delete();
-        } catch (\Exception $e) {
             return redirect()->route('admin.categories.index')
-                ->with('danger', 'Ошибка удаления категории: ' . $e->getMessage());
+                ->with('success', 'Категория удалена!');
+        } catch (\Exception $exception) {
+            return redirect()->route('admin.categories.index')
+                ->with('error', 'Ошибка удаления категории! ' . $exception->getMessage());
         }
-
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Категория удалена!');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::with('category')->paginate(5);
 
         return view('admin.posts.index', [
             'posts' => $posts
@@ -29,23 +30,18 @@ class PostController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-/*        $post = new Post();
-        $post->title = $request->input('title');
-        $post->content = $request->input('content');
-        $post->category_id = 1;
-        $post->save();*/
+        $validated = $request->validated();
 
-/*        Post::create([
-            'title' => $request->input('title'),
-            'content' => $request->input('content'),
-            'category_id' => 2,
-        ]);*/
+        try {
+            Post::create($validated);
+        } catch (\Exception $exception) {
+            return redirect()->route('admin.posts.create')
+                ->with('error', 'Ошибка добавления поста! ' . $exception->getMessage());
+        }
 
-        Post::create($request->all());
-
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index')->with('success', 'Пост добавлен!');
     }
 
     public function edit(Post $post)
@@ -62,15 +58,28 @@ class PostController extends Controller
 
     public function update(Request $request, Post $post)
     {
-        $post->update($request->all());
+        $validated = $request->validate([
+            'title' => 'required|min:5|max:255',
+            'content' => 'required|min:5|max:20000',
+            'category_id' => 'required|exists:categories,id',
+        ]);
 
-        return redirect()->route('admin.posts.index');
+        $post->fill($validated);
+        $post->save();
+
+        return redirect()->route('admin.posts.index')
+            ->with('success', 'Пост обновлен!');
     }
 
     public function destroy(Post $post)
     {
-        $post->delete();
-
-        return redirect()->route('admin.posts.index');
+        try {
+            $post->delete();
+            return redirect()->route('admin.posts.index')
+                ->with('success', 'Пост успешно удалён!');
+        } catch (\Exception $exception) {
+            return redirect()->route('admin.posts.index')
+                ->with('error', 'Ошибка удаления поста: ' . $exception->getMessage());
+        }
     }
 }

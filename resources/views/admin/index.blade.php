@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('title', 'Админка')
 
@@ -7,8 +7,17 @@
 @endsection
 
 @section('content')
-    <b>Добро пожаловать в админку</b>
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">Админка</div>
 
+                    <div class="card-body">
+                        Добро пожаловать в админку!
+                    </div>
+                </div>
+            </div>
+        </div>
 @endsection
 
 

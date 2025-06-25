@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('title', 'Главная')
 
@@ -7,5 +7,15 @@
 @endsection
 
 @section('content')
-    Добро пожаловать в наш Блог!
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Блог</div>
+
+                <div class="card-body">
+                    Добро пожаловать в наш блог!
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

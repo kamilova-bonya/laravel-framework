@@ -27,7 +27,7 @@ Route::name('admin.')
         Route::get('/posts', [AdminPostController::class, 'index'])->name('posts.index');
         Route::get('/posts/create', [AdminPostController::class, 'create'])->name('posts.create');
         Route::post('/posts/store', [AdminPostController::class, 'store'])->name('posts.store');
-        Route::get('/posts/{post}/destroy', [AdminPostController::class, 'destroy'])->name('posts.destroy');
+        Route::delete('/posts/{post}/destroy', [AdminPostController::class, 'destroy'])->name('posts.destroy');
         Route::get('/posts/{post}/edit', [AdminPostController::class, 'edit'])->name('posts.edit');
         Route::put('/posts/{post}', [AdminPostController::class, 'update'])->name('posts.update');
         Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
@@ -38,3 +38,9 @@ Route::name('admin.')
         Route::delete('/categories/{category}/destroy', [AdminCategoryController::class, 'destroy'])->name('categories.destroy');
     });
 
+
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
