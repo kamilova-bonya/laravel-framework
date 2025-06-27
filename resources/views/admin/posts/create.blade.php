@@ -20,7 +20,7 @@
                             <div class="col-md-6">
                                 <select class="form-select" name="category_id" id="category_id">
                                     @foreach($categories as $category)
-                                        <option @if($category->id == old('$category_id')) selected @endif
+                                        <option @if($category->id == old('category_id')) selected @endif
                                         value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
