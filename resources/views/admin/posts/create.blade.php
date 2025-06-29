@@ -12,7 +12,11 @@
             <div class="card">
                 <div class="card-header">Добавить пост</div>
                 <div class="card-body">
+<<<<<<< HEAD
                     <form enctype="multipart/form-data" action="{{ route('admin.posts.store') }}" method="post">
+=======
+                    <form action="{{ route('admin.posts.store') }}" method="post">
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
                         @csrf
 
                         <div class="row mb-3">
@@ -58,6 +62,7 @@
                             </div>
                         </div>
 
+<<<<<<< HEAD
                         <div class="row mb-3">
                             <label for="file" class="col-md-4 col-form-label text-md-end">Изображение</label>
                             <div class="col-md-6">
@@ -71,6 +76,8 @@
                             </div>
                         </div>
 
+=======
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">Добавить</button>

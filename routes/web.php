@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+<<<<<<< HEAD
 use App\Http\Controllers\CommentController;
+=======
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +22,7 @@ Route::group([], function () {
     Route::get('/posts/categories/{category}', [CategoryController::class, 'show'])->name('posts.categories.show')->where('id', '[0-9]+');
 });
 
+<<<<<<< HEAD
 Route::post('/posts/{id}/add/like', [PostController::class, 'addLike'])
     ->name('posts.like.add');
 
@@ -33,6 +37,11 @@ Route::middleware('auth')->group(function () {
 
 Route::name('admin.')
     ->middleware(['auth', 'isAdmin'])
+=======
+
+
+Route::name('admin.')
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
     ->prefix('admin')
     ->group(function () {
         Route::get('/', [AdminHomeController::class, 'index'])->name('index');

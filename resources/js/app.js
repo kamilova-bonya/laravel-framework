@@ -1,4 +1,5 @@
 import './bootstrap';
+<<<<<<< HEAD
 
 let buttonLike = document.querySelectorAll('.likeButton');
 buttonLike.forEach((elem) => {
@@ -14,3 +15,5 @@ buttonLike.forEach((elem) => {
             });
     })
 });
+=======
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994

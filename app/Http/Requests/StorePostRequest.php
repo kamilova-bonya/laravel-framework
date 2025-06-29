@@ -24,8 +24,12 @@ class StorePostRequest extends FormRequest
         return [
             'title' => 'required|min:5|max:255',
             'content' => 'required|min:5|max:20000',
+<<<<<<< HEAD
             'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
+=======
+            'category_id' => 'required|exists:categories,id'
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
         ];
     }
 
@@ -42,10 +46,13 @@ class StorePostRequest extends FormRequest
 
             'category_id.required' => 'Необходимо выбрать категорию',
             'category_id.exists' => 'Выбранная категория не существует',
+<<<<<<< HEAD
 
             'image.image' => 'Файл должен быть изображением',
             'image.mimes' => 'Изображение должно быть одного из форматов: jpeg, png, jpg, gif, svg',
             'image.max' => 'Размер изображения не должен превышать :max КБ',
+=======
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
         ];
     }
 

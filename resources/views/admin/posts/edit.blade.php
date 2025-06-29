@@ -12,7 +12,11 @@
                 <div class="card">
                     <div class="card-header">Изменить пост</div>
                     <div class="card-body">
+<<<<<<< HEAD
                         <form enctype="multipart/form-data" action="{{ route('admin.posts.update', $post) }}" method="post">
+=======
+                        <form action="{{ route('admin.posts.update', $post) }}" method="post">
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
                             @csrf
                             @method('PUT')
 
@@ -29,7 +33,11 @@
                                     </select>
                                     @error('category_id')
                                     <span class="invalid-feedback" role="alert">
+<<<<<<< HEAD
                                         <strong>{{ $message }}</strong>
+=======
+                                            <strong>{{ $message }}</strong>
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
                                     </span>
                                     @enderror
                                 </div>
@@ -43,7 +51,11 @@
                                         value="{{ old('title') ?? $post->title }}">
                                     @error('title')
                                     <span class="invalid-feedback" role="alert">
+<<<<<<< HEAD
                                         <strong>{{ $message }}</strong>
+=======
+                                            <strong>{{ $message }}</strong>
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
                                     </span>
                                     @enderror
                                 </div>
@@ -62,6 +74,7 @@
                                 </div>
                             </div>
 
+<<<<<<< HEAD
                             <div class="row mb-3">
                                 <label for="image" class="col-md-4 col-form-label text-md-end">Изображение:</label>
                                 <div class="col-md-6">
@@ -89,6 +102,8 @@
                             </div>
 
 
+=======
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">Изменить</button>

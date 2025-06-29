@@ -14,6 +14,7 @@
                 <div class="card-body">
                     <div class="mb-3">
                         Категория: {{ $post->category->name }}<br>
+<<<<<<< HEAD
 
                         @if($post->image)
                             <img class="w-25 me-2 float-start" src="{{ asset('storage/' . $post->image) }}" alt="img">
@@ -68,8 +69,19 @@
                     @empty
                         <p class="text-muted">Пока нет комментариев</p>
                     @endforelse
+=======
+                        <h5>{{ $post->title }}</h5>
+                        <p class="mt-2">{{ $post->content }}</p>
+                    </div>
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
                 </div>
             </div>
         </div>
     </div>
 @endsection
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994

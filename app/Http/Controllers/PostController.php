@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
+<<<<<<< HEAD
     public function addLike(string $id)
     {
         $post = Post::find($id);
@@ -27,6 +28,8 @@ class PostController extends Controller
         }
     }
 
+=======
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
     public function index()
     {
         $posts = Post::with('category')->paginate(5);
@@ -46,8 +49,11 @@ class PostController extends Controller
 
        // $post = DB::table("posts")->find($id);
 
+<<<<<<< HEAD
         $post->load(['comments.user', 'category']);
 
+=======
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
         return view('posts.show', [
             'post' => $post
         ]);

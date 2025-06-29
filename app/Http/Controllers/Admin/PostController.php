@@ -7,7 +7,10 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Storage;
+=======
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
 
 class PostController extends Controller
 {
@@ -36,6 +39,7 @@ class PostController extends Controller
         $validated = $request->validated();
 
         try {
+<<<<<<< HEAD
             $validated['user_id'] = auth()->id();
 
             if ($request->hasFile('image')) {
@@ -50,6 +54,15 @@ class PostController extends Controller
 
         return redirect()->route('posts.show', $post)
             ->with('success', 'Пост добавлен!');
+=======
+            Post::create($validated);
+        } catch (\Exception $exception) {
+            return redirect()->route('admin.posts.create')
+                ->with('error', 'Ошибка добавления поста! ' . $exception->getMessage());
+        }
+
+        return redirect()->route('admin.posts.index')->with('success', 'Пост добавлен!');
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
     }
 
     public function edit(Post $post)
@@ -70,6 +83,7 @@ class PostController extends Controller
             'title' => 'required|min:5|max:255',
             'content' => 'required|min:5|max:20000',
             'category_id' => 'required|exists:categories,id',
+<<<<<<< HEAD
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
         ]);
 
@@ -93,6 +107,12 @@ class PostController extends Controller
             return redirect()->route('admin.posts.edit', $post)
                 ->with('error', 'Ошибка обновления поста! ' . $exception->getMessage());
         }
+=======
+        ]);
+
+        $post->fill($validated);
+        $post->save();
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
 
         return redirect()->route('admin.posts.index')
             ->with('success', 'Пост обновлен!');
@@ -101,9 +121,12 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         try {
+<<<<<<< HEAD
             if ($post->image) {
                 Storage::delete($post->image);
             }
+=======
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
             $post->delete();
             return redirect()->route('admin.posts.index')
                 ->with('success', 'Пост успешно удалён!');

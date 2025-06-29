@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b72420539c83ec3c7c874ed3047368a0a558a994
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
