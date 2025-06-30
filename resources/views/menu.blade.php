@@ -8,6 +8,14 @@
     <li class="nav-item">
         <a class="nav-link @if(Route::is('posts.categories.index')) active @endif" href="{{ route('posts.categories.index') }}">Категории</a>
     </li>
+    @guest
+    @else
+        @if (auth()->user()->is_admin)
+            <li class="nav-item">
+                <a class="nav-link @if(Route::is('admin.index')) active @endif" href="{{ route('admin.index') }}">Админка</a>
+            </li>
+        @endif
+    @endif
     <li class="nav-item">
         <a class="nav-link @if(Route::is('admin.index')) active @endif" href="{{ route('admin.index') }}">Админка</a>
     </li>

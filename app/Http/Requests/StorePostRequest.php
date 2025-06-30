@@ -24,7 +24,9 @@ class StorePostRequest extends FormRequest
         return [
             'title' => 'required|min:5|max:255',
             'content' => 'required|min:5|max:20000',
-            'category_id' => 'required|exists:categories,id'
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
+            'category_id' => 'required|exists:categories,id',
         ];
     }
 
@@ -41,6 +43,11 @@ class StorePostRequest extends FormRequest
 
             'category_id.required' => 'Необходимо выбрать категорию',
             'category_id.exists' => 'Выбранная категория не существует',
+
+
+            'image.image' => 'Файл должен быть изображением',
+            'image.mimes' => 'Изображение должно быть одного из форматов: jpeg, png, jpg, gif, svg',
+            'image.max' => 'Размер изображения не должен превышать :max КБ',
         ];
     }
 

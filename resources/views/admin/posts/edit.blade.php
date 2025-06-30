@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">Изменить пост</div>
                     <div class="card-body">
-                        <form action="{{ route('admin.posts.update', $post) }}" method="post">
+                        <form enctype="multipart/form-data" action="{{ route('admin.posts.update', $post) }}" method="post">
                             @csrf
                             @method('PUT')
 
@@ -29,6 +29,7 @@
                                     </select>
                                     @error('category_id')
                                     <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
                                             <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
@@ -43,6 +44,7 @@
                                         value="{{ old('title') ?? $post->title }}">
                                     @error('title')
                                     <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
                                             <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
@@ -55,6 +57,32 @@
                                     <textarea class="form-control @error('content') is-invalid @enderror" name="content"
                                         rows="5">{{ old('content') ?? $post->content }}</textarea>
                                     @error('content')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="image" class="col-md-4 col-form-label text-md-end">Изображение:</label>
+                                <div class="col-md-6">
+                                    <input class="form-control @error('image') is-invalid @enderror" type="file"
+                                           name="image" id="image">
+                                    @if($post->image)
+                                        <div class="mt-2">
+                                            <small>Текущее изображение:</small>
+                                            <img src="{{ asset($post->image) }}" alt="Current image"
+                                                 class="img-thumbnail mt-1" style="max-width: 200px;">
+                                        </div>
+                                        <div class="form-check mt-2">
+                                            <input type="checkbox" name="remove_image" id="remove_image"
+                                                   class="form-check-input">
+                                            <label for="remove_image" class="form-check-label">Удалить текущее
+                                                изображение</label>
+                                        </div>
+                                    @endif
+                                    @error('image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

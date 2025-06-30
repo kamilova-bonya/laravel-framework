@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +20,20 @@ Route::group([], function () {
     Route::get('/posts/categories/{category}', [CategoryController::class, 'show'])->name('posts.categories.show')->where('id', '[0-9]+');
 });
 
+Route::post('/posts/{id}/add/like', [PostController::class, 'addLike'])
+    ->name('posts.like.add');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/posts/{post}/comments/create', [CommentController::class, 'create'])->name('comments.create');
+    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/comments/{comment}', [CommentController::class, 'show'])->name('comments.show');
+    Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+    Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+});
+
+Route::name('admin.')
+    ->middleware(['auth', 'isAdmin']);
 
 Route::name('admin.')
     ->prefix('admin')

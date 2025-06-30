@@ -7,6 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -35,13 +36,20 @@ class PostController extends Controller
         $validated = $request->validated();
 
         try {
-            Post::create($validated);
+            $validated['user_id'] = auth()->id();
+
+            if ($request->hasFile('image')) {
+                $validated['image'] = $request->file('image')
+                    ->store('posts', 'public');
+            }
+
+            $post = Post::create($validated);
         } catch (\Exception $exception) {
-            return redirect()->route('admin.posts.create')
-                ->with('error', 'Ошибка добавления поста! ' . $exception->getMessage());
+            return back()->with('error', 'Ошибка: ' . $exception->getMessage());
         }
 
-        return redirect()->route('admin.posts.index')->with('success', 'Пост добавлен!');
+        return redirect()->route('posts.show', $post)
+            ->with('success', 'Пост добавлен!');
     }
 
     public function edit(Post $post)
@@ -62,10 +70,29 @@ class PostController extends Controller
             'title' => 'required|min:5|max:255',
             'content' => 'required|min:5|max:20000',
             'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
         ]);
 
-        $post->fill($validated);
-        $post->save();
+        try {
+            if ($request->has('remove_image') && $post->image) {
+                Storage::delete($post->image);
+                $validated['image'] = null;
+            }
+
+            if ($request->hasFile('image')) {
+                if ($post->image) {
+                    Storage::delete($post->image);
+                }
+                $validated['image'] = $request->file('image')
+                    ->store('posts', 'public');
+            }
+
+            $post->update($validated);
+
+        } catch (\Exception $exception) {
+            return redirect()->route('admin.posts.edit', $post)
+                ->with('error', 'Ошибка обновления поста! ' . $exception->getMessage());
+        }
 
         return redirect()->route('admin.posts.index')
             ->with('success', 'Пост обновлен!');
@@ -74,6 +101,11 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         try {
+
+            if ($post->image) {
+                Storage::delete($post->image);
+            }
+
             $post->delete();
             return redirect()->route('admin.posts.index')
                 ->with('success', 'Пост успешно удалён!');
