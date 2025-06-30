@@ -46,11 +46,10 @@ class PostController extends Controller
 
        // $post = DB::table("posts")->find($id);
 
-        $post->load(['comments.user', 'category']);
+        $post->load(['user', 'comments.user', 'category']);
 
         return view('posts.show', [
             'post' => $post
         ]);
-
     }
 }

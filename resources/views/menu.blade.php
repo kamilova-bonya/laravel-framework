@@ -16,9 +16,6 @@
             </li>
         @endif
     @endif
-    <li class="nav-item">
-        <a class="nav-link @if(Route::is('admin.index')) active @endif" href="{{ route('admin.index') }}">Админка</a>
-    </li>
 </ul>
 
 

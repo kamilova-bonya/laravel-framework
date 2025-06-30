@@ -21,6 +21,7 @@ class CommentController extends Controller
      */
     public function create(Post $post)
     {
+        $this->authorize('create', Comment::class);
         return view('comments.create', compact('post'));
     }
 
@@ -56,6 +57,7 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
+        $comment->load('user', 'post');
         return view('comments.show', compact('comment'));
     }
 
